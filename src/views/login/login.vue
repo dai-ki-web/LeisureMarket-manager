@@ -1,18 +1,45 @@
 <template>
-  <div class="content">
-    <label for="">用户名：<input
-        type="text"
-        v-model="form.id"
-      ></label>
-    <label for="">密码：<input
-        type="password"
-        v-model="form.password"
-      ></label>
-    <div>
-      <button @click="turnToLogin">登录</button>
+  <div class="page-body">
+    <div class="header">
+      <img
+        src="@/assets/logo.png"
+        alt=""
+      >
     </div>
-    <hr />
-    {{form}}
+    <div>
+      <el-card class="login-box">
+        <div
+          slot="header"
+          class="clearfix"
+        >
+          <span class="title">后台管理系统</span>
+        </div>
+        <el-form
+          :model="form"
+          class="form-body"
+        >
+          <el-form-item class="form-item">
+            <el-input v-model="form.id"><i
+                slot="prefix"
+                class="el-input__icon el-icon-user"
+              ></i></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input
+              v-model="form.password"
+              type="password"
+            ><i
+                slot="prefix"
+                class="el-input__icon el-icon-key"
+              ></i></el-input>
+          </el-form-item>
+        </el-form>
+        <el-button
+          type="primary"
+          @click="turnToLogin"
+        >登录</el-button>
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -39,7 +66,7 @@ export default {
       // 改 加个加载状态
       login(this.form).then(res => {
         // 登录成功 打开页面
-        this.$router.push({name: 'index'})
+        this.$router.push({path: 'index/chart'})
       }).catch(err => {
         // 改：加个弹窗
         console.log(err)
@@ -48,8 +75,40 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
-.content label {
+<style lang="scss" scoped>
+.page-body {
   display: block;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: url('../../assets/bg.png') fixed no-repeat !important;
+  .header {
+    height: 200px;
+    img {
+      height: 100%;
+    }
+  }
+  .login-box {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 70%;
+    min-width: 200px;
+    margin: 0 auto;
+    padding: 10px 0;
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    .form-body {
+      margin: 0 10%;
+      padding: 20px 0;
+      .form-item {
+        margin-bottom: 20px;
+      }
+    }
+    .el-button {
+      width: 80%;
+    }
+  }
 }
 </style>
